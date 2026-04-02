@@ -1,0 +1,18 @@
+Solve the programming problem described in:
+{PROBLEM_FILE}
+
+Requirements:
+- Language: {LANGUAGE}
+- Read input from: {INPUT_FILE}
+- Put the code into the file: {OUTPUT_FILE}
+- No external libraries
+- Handle full input correctly
+
+Output of the code should only be the required answer!
+
+Rules:
+- Output the complete source code
+- Ensure the solution is correct and reasonably efficient
+- Follow idiomatic style for the chosen language
+- Make reasonable assumptions based only on the given input, do not invent missing requirements
+
