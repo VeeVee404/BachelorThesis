@@ -1,3 +1,7 @@
+import time
+
+start = time.perf_counter()
+
 def is_safe(levels):
     if len(levels) < 2:
         return True
@@ -31,3 +35,7 @@ with open("Day2_Input.txt", "r", encoding="utf-8") as file:
             answer += 1
 
 print(answer)
+
+
+end = time.perf_counter()
+print(f"Runtime: {end - start:.6f} seconds")

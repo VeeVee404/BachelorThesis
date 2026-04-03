@@ -1,3 +1,5 @@
+import time
+
 def main() -> None:
     position = 50
     zero_count = 0
@@ -23,4 +25,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    start = time.perf_counter()
     main()
+    end = time.perf_counter()
+    print(f"Runtime: {end - start:.6f} seconds")

@@ -1,6 +1,8 @@
+use std::time::Instant;
 use std::fs;
 
 fn main() {
+    let start = Instant::now();
     let input = fs::read_to_string("Day1_Input.txt").expect("Failed to read input file");
 
     let mut left: Vec<i64> = Vec::new();
@@ -20,4 +22,6 @@ fn main() {
     let total: i64 = left.iter().zip(right.iter()).map(|(a, b)| (a - b).abs()).sum();
 
     println!("{}", total);
+
+    println!("Runtime: {:.6} seconds", start.elapsed().as_secs_f64());
 }

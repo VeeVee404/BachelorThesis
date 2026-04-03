@@ -1,3 +1,4 @@
+use std::time::Instant;
 use std::collections::HashMap;
 use std::fs;
 
@@ -20,6 +21,7 @@ fn count_paths(node: &str, graph: &HashMap<String, Vec<String>>, memo: &mut Hash
 }
 
 fn main() {
+    let start = Instant::now();
     let content = fs::read_to_string("Day11_input.txt").expect("Could not read input file");
 
     let mut graph: HashMap<String, Vec<String>> = HashMap::new();
@@ -35,4 +37,6 @@ fn main() {
     let result = count_paths("you", &graph, &mut memo);
 
     println!("{}", result);
+
+    println!("Runtime: {:.6} seconds", start.elapsed().as_secs_f64());
 }

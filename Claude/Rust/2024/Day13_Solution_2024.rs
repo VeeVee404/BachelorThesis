@@ -1,3 +1,4 @@
+use std::time::Instant;
 use std::fs;
 
 fn solve(ax: i64, ay: i64, bx: i64, by: i64, px: i64, py: i64) -> Option<i64> {
@@ -20,6 +21,7 @@ fn solve(ax: i64, ay: i64, bx: i64, by: i64, px: i64, py: i64) -> Option<i64> {
 }
 
 fn main() {
+    let start = Instant::now();
     let input = fs::read_to_string("Day13_Input.txt").expect("Failed to read input file");
 
     let mut total = 0i64;
@@ -63,4 +65,7 @@ fn main() {
     }
 
     println!("{}", total);
+
+    println!("Runtime: {:.6} seconds", start.elapsed().as_secs_f64());
 }
+

@@ -1,4 +1,7 @@
+import time
 from collections import deque
+
+start = time.perf_counter()
 
 
 grid = []
@@ -49,3 +52,7 @@ for start_row in range(rows):
         total_price += area * perimeter
 
 print(total_price)
+
+
+end = time.perf_counter()
+print(f"Runtime: {end - start:.6f} seconds")

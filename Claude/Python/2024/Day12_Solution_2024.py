@@ -1,4 +1,7 @@
+import time
 from collections import deque
+
+start = time.perf_counter()
 
 with open("../../../Codex/Python/2024/Day12_Input.txt") as f:
     grid = [line.rstrip('\n') for line in f]
@@ -30,3 +33,7 @@ for sr in range(rows):
         total += area * perimeter
 
 print(total)
+
+
+end = time.perf_counter()
+print(f"Runtime: {end - start:.6f} seconds")

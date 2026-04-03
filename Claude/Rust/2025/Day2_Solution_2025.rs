@@ -1,6 +1,8 @@
+use std::time::Instant;
 use std::fs;
 
 fn main() {
+    let start = Instant::now();
     let content = fs::read_to_string("Day2_Input.txt").expect("Could not read input file");
     let content = content.trim();
 
@@ -36,4 +38,6 @@ fn main() {
     }
 
     println!("{}", total);
+
+    println!("Runtime: {:.6} seconds", start.elapsed().as_secs_f64());
 }

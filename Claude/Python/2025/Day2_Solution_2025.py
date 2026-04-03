@@ -1,3 +1,7 @@
+import time
+
+start = time.perf_counter()
+
 with open("Day2_Input.txt") as f:
     data = f.read().strip()
 
@@ -31,3 +35,6 @@ for a, b in ranges:
             total += n
 
 print(total)
+
+end = time.perf_counter()
+print(f"Runtime: {end - start:.6f} seconds")

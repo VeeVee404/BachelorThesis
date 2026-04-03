@@ -1,6 +1,8 @@
+use std::time::Instant;
 use std::fs;
 
 fn main() {
+    let start = Instant::now();
     let content = fs::read_to_string("Day6_Input.txt").expect("Could not read input file");
 
     let lines: Vec<&str> = content.lines().filter(|l| !l.is_empty()).collect();
@@ -89,4 +91,6 @@ fn main() {
     }
 
     println!("{}", grand_total);
+
+    println!("Runtime: {:.6} seconds", start.elapsed().as_secs_f64());
 }

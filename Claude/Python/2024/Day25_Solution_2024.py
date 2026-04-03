@@ -1,3 +1,7 @@
+import time
+
+start = time.perf_counter()
+
 with open("../../../Codex/Python/2024/Day25_Input.txt") as f:
     text = f.read()
 
@@ -17,3 +21,7 @@ print(sum(
     for lock in locks
     for key in keys
 ))
+
+
+end = time.perf_counter()
+print(f"Runtime: {end - start:.6f} seconds")

@@ -1,3 +1,7 @@
+import time
+
+start = time.perf_counter()
+
 def parse_machine(block):
     a_line, b_line, prize_line = block.splitlines()
 
@@ -44,3 +48,7 @@ for ax, ay, bx, by, px, py in machines:
         total_tokens += best_cost
 
 print(total_tokens)
+
+
+end = time.perf_counter()
+print(f"Runtime: {end - start:.6f} seconds")

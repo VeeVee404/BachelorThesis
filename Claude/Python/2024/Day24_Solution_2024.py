@@ -1,3 +1,7 @@
+import time
+
+start = time.perf_counter()
+
 with open("../../../Codex/Python/2024/Day24_Input.txt") as f:
     text = f.read()
 
@@ -37,3 +41,7 @@ while pending:
 z_wires = sorted((k for k in wires if k.startswith('z')), reverse=True)
 result = int(''.join(str(wires[z]) for z in z_wires), 2)
 print(result)
+
+
+end = time.perf_counter()
+print(f"Runtime: {end - start:.6f} seconds")

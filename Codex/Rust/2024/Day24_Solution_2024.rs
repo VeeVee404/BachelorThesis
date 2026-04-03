@@ -1,3 +1,4 @@
+use std::time::Instant;
 use std::collections::HashMap;
 use std::fs;
 
@@ -39,6 +40,7 @@ fn eval_wire(
 }
 
 fn main() {
+    let start = Instant::now();
     let input = fs::read_to_string("Day24_Input.txt").expect("failed to read Day24_Input.txt");
     let (initial_section, gates_section) = input.split_once("\n\n").expect("invalid input");
 
@@ -90,4 +92,6 @@ fn main() {
     }
 
     println!("{result}");
+
+    println!("Runtime: {:.6} seconds", start.elapsed().as_secs_f64());
 }

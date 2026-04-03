@@ -1,7 +1,9 @@
+use std::time::Instant;
 use std::collections::VecDeque;
 use std::fs;
 
 fn main() {
+    let start = Instant::now();
     let input = fs::read_to_string("Day12_Input.txt").expect("failed to read Day12_Input.txt");
     let grid: Vec<Vec<u8>> = input
         .lines()
@@ -59,4 +61,6 @@ fn main() {
     }
 
     println!("{total_price}");
+
+    println!("Runtime: {:.6} seconds", start.elapsed().as_secs_f64());
 }

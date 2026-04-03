@@ -1,3 +1,7 @@
+import time
+
+start = time.perf_counter()
+
 locks = []
 keys = []
 
@@ -32,3 +36,7 @@ for lock in locks:
             answer += 1
 
 print(answer)
+
+
+end = time.perf_counter()
+print(f"Runtime: {end - start:.6f} seconds")

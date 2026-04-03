@@ -1,6 +1,8 @@
+use std::time::Instant;
 use std::fs;
 
 fn main() {
+    let start = Instant::now();
     let input = fs::read_to_string("Day25_Input.txt").expect("Failed to read input file");
 
     let mut locks: Vec<[u8; 5]> = Vec::new();
@@ -40,4 +42,6 @@ fn main() {
     }
 
     println!("{}", count);
+
+    println!("Runtime: {:.6} seconds", start.elapsed().as_secs_f64());
 }

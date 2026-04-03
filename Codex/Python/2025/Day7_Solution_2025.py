@@ -1,3 +1,5 @@
+import time
+
 def main() -> None:
     with open("Day7_input.txt", "r", encoding="utf-8") as file:
         grid = [line.rstrip("\n") for line in file if line.rstrip("\n")]
@@ -26,4 +28,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    start = time.perf_counter()
     main()
+    end = time.perf_counter()
+    print(f"Runtime: {end - start:.6f} seconds")

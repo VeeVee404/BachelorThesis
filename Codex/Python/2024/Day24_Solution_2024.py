@@ -1,3 +1,7 @@
+import time
+
+start = time.perf_counter()
+
 values = {}
 gates = {}
 
@@ -39,3 +43,7 @@ for wire in z_wires:
     answer = (answer << 1) | evaluate(wire)
 
 print(answer)
+
+
+end = time.perf_counter()
+print(f"Runtime: {end - start:.6f} seconds")

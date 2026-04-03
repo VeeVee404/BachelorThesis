@@ -1,3 +1,7 @@
+import time
+
+start = time.perf_counter()
+
 def main() -> None:
     with open("Day12_Input.txt", "r", encoding="utf-8") as file:
         lines = [line.rstrip("\n") for line in file]
@@ -45,4 +49,10 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    start = time.perf_counter()
     main()
+    end = time.perf_counter()
+    print(f"Runtime: {end - start:.6f} seconds")
+
+end = time.perf_counter()
+print(f"Runtime: {end - start:.6f} seconds")

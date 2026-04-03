@@ -1,4 +1,7 @@
+import time
 import re
+
+start = time.perf_counter()
 
 with open("../../../Codex/Python/2024/Day13_Input.txt") as f:
     text = f.read()
@@ -34,3 +37,7 @@ for block in blocks:
             total += best
 
 print(total)
+
+
+end = time.perf_counter()
+print(f"Runtime: {end - start:.6f} seconds")

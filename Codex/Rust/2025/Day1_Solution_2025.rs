@@ -1,6 +1,8 @@
+use std::time::Instant;
 use std::fs;
 
 fn main() {
+    let start = Instant::now();
     let input = fs::read_to_string("Day1_Input.txt").expect("failed to read Day1_Input.txt");
 
     let mut position: i64 = 50;
@@ -26,4 +28,6 @@ fn main() {
     }
 
     println!("{count}");
+
+    println!("Runtime: {:.6} seconds", start.elapsed().as_secs_f64());
 }

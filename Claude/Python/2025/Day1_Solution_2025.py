@@ -1,3 +1,7 @@
+import time
+
+start = time.perf_counter()
+
 with open("Day1_Input.txt") as f:
     rotations = f.read().split()
 
@@ -15,3 +19,6 @@ for rot in rotations:
         count += 1
 
 print(count)
+
+end = time.perf_counter()
+print(f"Runtime: {end - start:.6f} seconds")

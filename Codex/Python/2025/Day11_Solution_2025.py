@@ -1,3 +1,5 @@
+import time
+
 from functools import lru_cache
 
 
@@ -22,4 +24,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    start = time.perf_counter()
     main()
+    end = time.perf_counter()
+    print(f"Runtime: {end - start:.6f} seconds")

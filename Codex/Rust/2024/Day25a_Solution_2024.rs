@@ -1,3 +1,4 @@
+use std::time::Instant;
 use std::fs;
 
 fn parse_heights(block: &str) -> [u8; 5] {
@@ -19,6 +20,7 @@ fn parse_heights(block: &str) -> [u8; 5] {
 }
 
 fn main() {
+    let start = Instant::now();
     let input = fs::read_to_string("Day25_Input.txt").expect("failed to read Day25_Input.txt");
 
     let mut locks: Vec<[u8; 5]> = Vec::new();
@@ -45,4 +47,6 @@ fn main() {
     }
 
     println!("{count}");
+
+    println!("Runtime: {:.6} seconds", start.elapsed().as_secs_f64());
 }

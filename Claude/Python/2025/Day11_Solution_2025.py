@@ -1,5 +1,8 @@
+import time
 import sys
 from functools import lru_cache
+
+start = time.perf_counter()
 
 sys.setrecursionlimit(100000)
 
@@ -19,4 +22,7 @@ def count_paths(node):
         return 1
     return sum(count_paths(t) for t in graph.get(node, []))
 
-print(count_paths('you'))
+print(count_paths("you"))
+
+end = time.perf_counter()
+print(f"Runtime: {end - start:.6f} seconds")

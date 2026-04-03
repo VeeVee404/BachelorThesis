@@ -1,3 +1,4 @@
+use std::time::Instant;
 use std::fs;
 
 fn parse_ranges(input: &str) -> Vec<(u64, u64)> {
@@ -67,6 +68,7 @@ fn generate_invalid_ids(max_value: u64) -> Vec<u64> {
 }
 
 fn main() {
+    let start = Instant::now();
     let input = fs::read_to_string("Day2_Input.txt").expect("failed to read Day2_Input.txt");
     let ranges = parse_ranges(&input);
     let merged_ranges = merge_ranges(ranges);
@@ -88,4 +90,6 @@ fn main() {
     }
 
     println!("{sum}");
+
+    println!("Runtime: {:.6} seconds", start.elapsed().as_secs_f64());
 }

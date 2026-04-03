@@ -1,6 +1,8 @@
+use std::time::Instant;
 use std::fs;
 
 fn main() {
+    let start = Instant::now();
     let input =
         fs::read_to_string("Day1_Input.txt").expect("failed to read Day1_Input.txt");
 
@@ -40,4 +42,6 @@ fn main() {
         .sum();
 
     println!("{total_distance}");
+
+    println!("Runtime: {:.6} seconds", start.elapsed().as_secs_f64());
 }

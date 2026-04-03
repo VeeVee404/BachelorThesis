@@ -1,7 +1,9 @@
+use std::time::Instant;
 use std::collections::HashSet;
 use std::fs;
 
 fn main() {
+    let start = Instant::now();
     let content = fs::read_to_string("Day7_input.txt").expect("Could not read input file");
 
     let grid: Vec<Vec<char>> = content
@@ -60,4 +62,6 @@ fn main() {
     }
 
     println!("{}", split_count);
+
+    println!("Runtime: {:.6} seconds", start.elapsed().as_secs_f64());
 }

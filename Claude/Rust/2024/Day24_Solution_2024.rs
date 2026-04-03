@@ -1,7 +1,9 @@
+use std::time::Instant;
 use std::collections::HashMap;
 use std::fs;
 
 fn main() {
+    let start = Instant::now();
     let input = fs::read_to_string("Day24_Input.txt").expect("Failed to read input file");
     let mut sections = input.splitn(2, "\n\n");
 
@@ -75,4 +77,6 @@ fn main() {
         .fold(0u64, |acc, &(idx, bit)| acc | ((bit as u64) << idx));
 
     println!("{}", result);
+
+    println!("Runtime: {:.6} seconds", start.elapsed().as_secs_f64());
 }

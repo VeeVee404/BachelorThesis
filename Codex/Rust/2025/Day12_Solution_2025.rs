@@ -1,6 +1,8 @@
+use std::time::Instant;
 use std::fs;
 
 fn main() {
+    let start = Instant::now();
     let input = fs::read_to_string("Day12_Input.txt").expect("failed to read Day12_Input.txt");
     let mut shape_areas = Vec::new();
     let mut lines = input.lines().peekable();
@@ -67,4 +69,6 @@ fn main() {
     }
 
     println!("{answer}");
+
+    println!("Runtime: {:.6} seconds", start.elapsed().as_secs_f64());
 }

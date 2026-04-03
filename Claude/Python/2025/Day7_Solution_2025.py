@@ -1,4 +1,7 @@
+import time
 from collections import deque
+
+start = time.perf_counter()
 
 with open("Day7_input.txt") as f:
     grid = [line.rstrip('\n') for line in f]
@@ -29,3 +32,6 @@ while queue:
         queue.append((r + 1, c))
 
 print(split_count)
+
+end = time.perf_counter()
+print(f"Runtime: {end - start:.6f} seconds")

@@ -1,3 +1,7 @@
+import time
+
+start = time.perf_counter()
+
 with open("Day6_Input.txt") as f:
     lines = f.read().splitlines()
 
@@ -53,3 +57,6 @@ for start, end in problems:
     total += result
 
 print(total)
+
+end = time.perf_counter()
+print(f"Runtime: {end - start:.6f} seconds")

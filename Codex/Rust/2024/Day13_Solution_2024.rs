@@ -1,3 +1,4 @@
+use std::time::Instant;
 use std::fs;
 
 #[derive(Clone, Copy)]
@@ -81,10 +82,13 @@ fn min_tokens(machine: Machine) -> Option<i64> {
 }
 
 fn main() {
+    let start = Instant::now();
     let input = fs::read_to_string("Day13_Input.txt").expect("failed to read Day13_Input.txt");
     let machines = parse_input(&input);
 
     let total_tokens: i64 = machines.into_iter().filter_map(min_tokens).sum();
 
     println!("{total_tokens}");
+
+    println!("Runtime: {:.6} seconds", start.elapsed().as_secs_f64());
 }

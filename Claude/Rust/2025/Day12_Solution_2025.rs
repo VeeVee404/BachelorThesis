@@ -1,6 +1,8 @@
+use std::time::Instant;
 use std::fs;
 
 fn main() {
+    let start = Instant::now();
     let content = fs::read_to_string("Day12_input.txt").expect("Could not read input file");
     let mut lines = content.lines().peekable();
 
@@ -87,4 +89,6 @@ fn main() {
     }
 
     println!("{}", fits);
+
+    println!("Runtime: {:.6} seconds", start.elapsed().as_secs_f64());
 }

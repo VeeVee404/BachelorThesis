@@ -1,3 +1,4 @@
+use std::time::Instant;
 use std::collections::HashMap;
 use std::fs;
 
@@ -29,6 +30,7 @@ fn count_paths(
 }
 
 fn main() {
+    let start = Instant::now();
     let input = fs::read_to_string("Day11_Input.txt").expect("failed to read Day11_Input.txt");
     let mut graph: HashMap<String, Vec<String>> = HashMap::new();
 
@@ -44,4 +46,6 @@ fn main() {
     let mut memo: HashMap<String, u128> = HashMap::new();
     let answer = count_paths("you", &graph, &mut memo);
     println!("{answer}");
+
+    println!("Runtime: {:.6} seconds", start.elapsed().as_secs_f64());
 }

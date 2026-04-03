@@ -1,3 +1,7 @@
+import time
+
+start = time.perf_counter()
+
 lines = open("Day12_Input.txt").read().splitlines()
 
 # Parse shapes and their cell counts
@@ -21,7 +25,7 @@ cells = [shape_cells[k] for k in sorted(shape_cells)]
 count = 0
 for line in lines:
     if ':' in line and 'x' in line.split(':')[0]:
-        dims, rest = line.split(': ')
+        dims, rest = line.split(': ') 
         w, h = map(int, dims.split('x'))
         ns = list(map(int, rest.split()))
         needed = sum(n * c for n, c in zip(ns, cells))
@@ -29,3 +33,6 @@ for line in lines:
             count += 1
 
 print(count)
+
+end = time.perf_counter()
+print(f"Runtime: {end - start:.6f} seconds")

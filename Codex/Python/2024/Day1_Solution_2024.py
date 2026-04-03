@@ -1,3 +1,7 @@
+import time
+
+start = time.perf_counter()
+
 left_values = []
 right_values = []
 
@@ -18,3 +22,7 @@ for left, right in zip(left_values, right_values):
     answer += abs(left - right)
 
 print(answer)
+
+
+end = time.perf_counter()
+print(f"Runtime: {end - start:.6f} seconds")
