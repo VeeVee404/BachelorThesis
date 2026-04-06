@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import math
+import shutil
 import statistics
 import subprocess
 import sys
@@ -12,8 +13,30 @@ from pathlib import Path
 
 RUNTIME_PREFIX = "Runtime:"
 MEMORY_PREFIX = "__MAX_RSS_KB__="
-TIME_BINARY = Path("/usr/bin/time")
 YEAR = "2024"
+
+
+def detect_time_binary() -> Path | None:
+    for candidate in ("/usr/bin/time", shutil.which("gtime"), shutil.which("time")):
+        if not candidate:
+            continue
+        path = Path(candidate)
+        try:
+            probe = subprocess.run(
+                [str(path), "-f", MEMORY_PREFIX, "true"],
+                capture_output=True,
+                text=True,
+                timeout=2.0,
+                check=False,
+            )
+        except (OSError, subprocess.SubprocessError):
+            continue
+        if probe.returncode == 0 and MEMORY_PREFIX in probe.stderr:
+            return path
+    return None
+
+
+TIME_BINARY = detect_time_binary()
 
 
 def discover(base: Path) -> list[Path]:
@@ -35,14 +58,14 @@ class RunResult:
 
 
 def time_command(solution: Path) -> list[str]:
-    if TIME_BINARY.exists():
+    if TIME_BINARY is not None:
         return [str(TIME_BINARY), "-f", f"{MEMORY_PREFIX}%M", sys.executable, solution.name]
     return [sys.executable, solution.name]
 
 
 def split_stderr_and_memory(stderr: str) -> tuple[str, int | None]:
     lines = stderr.splitlines()
-    if TIME_BINARY.exists() and lines:
+    if TIME_BINARY is not None and lines:
         last_line = lines[-1].strip()
         if last_line.startswith(MEMORY_PREFIX):
             value = last_line.removeprefix(MEMORY_PREFIX)
@@ -72,7 +95,7 @@ def run_once(solution: Path, timeout: float) -> RunResult:
 def memory_stats(samples: list[int | None]) -> str:
     measured = [sample for sample in samples if sample is not None]
     if not measured:
-        return "memory=n/a"
+        return "memory=n/a (GNU time not available)"
     mean_kb = statistics.fmean(measured)
     return (
         f"memory_mean={mean_kb / 1024.0:.3f} MiB "
