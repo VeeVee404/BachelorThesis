@@ -1,0 +1,758 @@
+\documentclass[12pt,a4paper]{report}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usepackage{lmodern}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{enumitem}
+
+\usepackage{amsmath,amssymb}
+\usepackage{siunitx}
+
+\usepackage{xcolor}
+\usepackage{listings}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    urlcolor=blue,
+    pdftitle={Benchmarking Large Language Models on Algorithmic Programming Tasks},
+    pdfauthor={Your Name}
+}
+
+\usepackage{csquotes}
+\usepackage[
+    backend=biber,
+    style=ieee
+]{biblatex}
+
+\begin{filecontents*}{\jobname.bib}
+@misc{aoc,
+  author = {Wastl, Eric},
+  title = {Advent of Code},
+  year = {2024},
+  url = {https://adventofcode.com/},
+  note = {Accessed: 2026-04-05}
+}
+
+@article{chen2021codex,
+  author = {Chen, Mark and others},
+  title = {Evaluating Large Language Models Trained on Code},
+  journal = {arXiv preprint arXiv:2107.03374},
+  year = {2021}
+}
+
+@article{austin2021programsynthesis,
+  author = {Austin, Jacob and others},
+  title = {Program Synthesis with Large Language Models},
+  journal = {arXiv preprint arXiv:2108.07732},
+  year = {2021}
+}
+
+@article{openai2023gpt4,
+  author = {{OpenAI}},
+  title = {GPT-4 Technical Report},
+  journal = {arXiv preprint arXiv:2303.08774},
+  year = {2023}
+}
+\end{filecontents*}
+
+\addbibresource{\jobname.bib}
+
+\lstdefinestyle{mystyle}{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    showstringspaces=false
+}
+\lstset{style=mystyle}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    {\Large University Name\par}
+    \vspace{1cm}
+    {\large Bachelor Thesis\par}
+    \vspace{2cm}
+    {\huge \textbf{Benchmarking Large Language Models on Algorithmic Programming Tasks}\par}
+    \vspace{0.5cm}
+    {\Large A Case Study Using Advent of Code with Python and Rust\par}
+    \vspace{2cm}
+    {\large Your Name\par}
+    \vfill
+    \begin{flushleft}
+        Supervisor: Prof.\ Dr.\ Name \\
+        Degree Program: Computer Science \\
+        Submission Date: \today
+    \end{flushleft}
+\end{titlepage}
+
+\pagenumbering{roman}
+
+\chapter*{Abstract}
+This thesis evaluates the performance of large language models on algorithmic programming tasks using Advent of Code problems. The generated solutions are compared across Python and Rust with respect to correctness, runtime, memory usage, compile success, and code quality. The goal is to assess both the algorithmic reasoning ability of the models and the influence of programming language on generated code quality. To ensure fairness and reproducibility, all experiments are conducted under controlled conditions using standardized prompts, fixed problem sets, and automated evaluation scripts.
+
+\chapter*{Acknowledgements}
+Optional.
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\clearpage
+\pagenumbering{arabic}
+
+\chapter{Introduction}
+
+\section{Motivation}
+Large language models are increasingly used for software development tasks, including code generation, debugging, refactoring, and explanation. As these systems become more common in practice, it becomes necessary to evaluate not only whether they can produce syntactically correct code, but also whether they can solve algorithmic problems reliably and efficiently.
+
+Algorithmic programming tasks are particularly suitable for this kind of evaluation because they require structured reasoning, careful input handling, and awareness of computational complexity. In contrast to simple code completion, such tasks test whether a model can derive an algorithmic solution from a textual specification and implement it correctly.
+
+\section{Problem Statement}
+Although large language models can often generate plausible code, their actual performance on algorithmically demanding tasks remains uncertain. It is therefore important to investigate:
+\begin{itemize}
+    \item how often they generate correct solutions,
+    \item whether they select efficient algorithms,
+    \item how robust their outputs are across different programming languages, and
+    \item what kinds of errors occur in practice.
+\end{itemize}
+
+This thesis addresses these questions using Advent of Code as the evaluation benchmark and comparing generated solutions in Python and Rust.
+
+\section{Research Objectives}
+The main objective of this thesis is to benchmark selected large language models on algorithmic programming tasks and evaluate their generated solutions systematically. The study focuses on:
+\begin{itemize}
+    \item correctness,
+    \item runtime performance,
+    \item memory usage,
+    \item compile success,
+    \item and structural characteristics of the generated code.
+\end{itemize}
+
+\section{Research Questions}
+The main research question is:
+
+\begin{quote}
+How effectively can large language models solve algorithmic programming tasks from Advent of Code, and how do their generated solutions differ between Python and Rust?
+\end{quote}
+
+Sub-questions include:
+\begin{itemize}
+    \item What proportion of selected tasks can be solved correctly?
+    \item How do runtime and memory usage differ between Python and Rust solutions?
+    \item Which categories of errors occur most frequently?
+    \item Does the target programming language influence correctness, compile success, or code quality?
+\end{itemize}
+
+\section{Structure of the Thesis}
+Chapter 2 introduces the theoretical background. Chapter 3 discusses related work. Chapter 4 explains the methodology. Chapter 5 presents the implementation and experimental setup. Chapter 6 reports the benchmark results. Chapter 7 discusses the findings and limitations. Chapter 8 concludes the thesis and outlines future work.
+
+\chapter{Background}
+
+\section{Large Language Models}
+Large language models are neural networks trained on large text corpora using the transformer architecture. Recent models are capable of generating code, explaining algorithms, and assisting with programming tasks. Their coding ability is often attributed to exposure to large-scale code repositories and documentation during training \cite{chen2021codex,openai2023gpt4}.
+
+In the context of this thesis, large language models are treated as code-generating systems that receive a natural-language problem description and produce a complete solution in a specified programming language.
+
+\section{Algorithmic Programming Tasks}
+Algorithmic programming tasks require more than local code generation. They usually involve:
+\begin{itemize}
+    \item parsing structured input,
+    \item identifying the underlying computational problem,
+    \item designing a suitable algorithm,
+    \item implementing the solution correctly,
+    \item and reasoning about complexity.
+\end{itemize}
+
+Typical categories include graph problems, dynamic programming, simulation, greedy methods, search, and string processing.
+
+\section{Advent of Code}
+Advent of Code is an annual programming challenge consisting of 25 daily problems released each December \cite{aoc}. Each problem has two parts, with the second part usually extending or modifying the first. The problems span a wide range of algorithmic categories and difficulty levels, which makes Advent of Code a useful benchmark for evaluating the problem-solving ability of code generation systems.
+
+Compared to benchmark suites focused on short function synthesis, Advent of Code problems often require full-program solutions, input parsing, and multi-step reasoning. This makes them particularly suitable for evaluating practical algorithmic problem solving.
+
+\section{Programming Languages: Python and Rust}
+This thesis compares generated solutions in Python and Rust.
+
+\subsection{Python}
+Python is widely used for rapid prototyping and algorithmic problem solving. Its concise syntax and high-level data structures make it suitable for expressing algorithms clearly and with relatively little boilerplate. However, Python generally has lower runtime performance and higher memory overhead than lower-level languages.
+
+\subsection{Rust}
+Rust is a systems programming language designed for performance and memory safety. It offers efficient execution and strong compile-time guarantees, but its strict ownership and borrowing rules can make code generation more challenging. This makes Rust an interesting comparison language: it may reveal whether large language models struggle more when the target language imposes stronger structural constraints.
+
+\chapter{Related Work}
+
+\section{LLMs for Code Generation}
+Prior work has shown that large language models can generate working code for a variety of programming tasks. Codex and related systems were evaluated on benchmarks such as HumanEval, which focus mainly on functional correctness \cite{chen2021codex}. Further work examined program synthesis capabilities on tasks such as MBPP and similar datasets \cite{austin2021programsynthesis}.
+
+\section{Benchmarking in Software Engineering}
+Software engineering benchmarks emphasize reproducibility, fairness, and clear evaluation criteria. These principles are especially important when comparing AI-based systems because small differences in prompts, runtime environment, or manual intervention can strongly affect the outcome.
+
+A proper benchmark should therefore:
+\begin{itemize}
+    \item define variables clearly,
+    \item fix the dataset in advance,
+    \item standardize prompts,
+    \item log all runs,
+    \item avoid manual corrections during measurement,
+    \item and report both successes and failures.
+\end{itemize}
+
+\section{Research Gap}
+Much prior work evaluates code generation on short benchmark tasks, but fewer studies examine full-program algorithmic challenges such as Advent of Code while simultaneously comparing multiple target languages. This thesis contributes by combining:
+\begin{itemize}
+    \item algorithmic programming tasks,
+    \item model comparison,
+    \item and a cross-language evaluation between Python and Rust.
+\end{itemize}
+
+\chapter{Methodology}
+
+\section{Study Design}
+This thesis follows an empirical benchmarking approach. The benchmark compares two code-generating systems across two programming languages on a fixed set of Advent of Code problems.
+
+The independent variables are:
+\begin{itemize}
+    \item model,
+    \item target programming language,
+    \item and problem difficulty.
+\end{itemize}
+
+The dependent variables are:
+\begin{itemize}
+    \item correctness,
+    \item compile success,
+    \item runtime,
+    \item memory usage,
+    \item and lines of code.
+\end{itemize}
+
+\section{Scientific Benchmarking Principles}
+To ensure that the benchmark is scientifically meaningful, the following principles are applied:
+
+\subsection{Reproducibility}
+All experiments are executed using the same machine, operating system, prompt templates, and evaluation scripts. The benchmark repository contains the selected problems, raw prompts, generated code, logs, and result tables.
+
+\subsection{Fairness}
+All models receive the same prompt structure. Only the problem file, input file, and target language are changed between runs. No model-specific hints are added.
+
+\subsection{Objectivity}
+All code is evaluated automatically. Generated solutions are run exactly as produced, without manual fixes before scoring. If repair attempts are included, they are handled using a standardized repair prompt and logged separately.
+
+\subsection{Transparency}
+Every run stores:
+\begin{itemize}
+    \item the exact prompt,
+    \item the model name,
+    \item the generated output,
+    \item compile or runtime logs,
+    \item and the measured metrics.
+\end{itemize}
+
+\section{Problem Selection}
+A fixed set of Advent of Code problems is selected before running the experiments. The selection should include multiple difficulty levels and problem categories, for example:
+\begin{itemize}
+    \item parsing and string processing,
+    \item simulation,
+    \item graph traversal,
+    \item state tracking,
+    \item and optimization or dynamic programming.
+\end{itemize}
+
+A suitable benchmark size for a bachelor thesis is 10 to 12 problems. This creates enough data for comparison without making the experiment unmanageable.
+
+\section{Models and Languages}
+The benchmark compares two code-generation systems:
+\begin{itemize}
+    \item Codex,
+    \item Sonnet.
+\end{itemize}
+
+Each model is evaluated in:
+\begin{itemize}
+    \item Python,
+    \item Rust.
+\end{itemize}
+
+This yields the following experimental matrix:
+
+\begin{table}[H]
+\centering
+\caption{Experimental matrix}
+\begin{tabular}{ll}
+\toprule
+Model & Language \\
+\midrule
+Codex & Python \\
+Codex & Rust \\
+Sonnet & Python \\
+Sonnet & Rust \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+If 10 problems are used, this results in 40 primary runs before any repair attempts are considered.
+
+\section{Prompt Design}
+A standardized prompt template is used across all runs. Only the problem file, input file, and target language are changed. The benchmark prompt is intentionally short, explicit, and easy to automate.
+
+\begin{lstlisting}
+You are participating in a controlled benchmark for code generation.
+
+Solve the programming problem described in:
+{PROBLEM_FILE}
+
+Requirements:
+- Language: {LANGUAGE}
+- Read input from: {INPUT_FILE}
+- No external libraries
+- Handle full input correctly (not just examples)
+
+Output EXACTLY:
+Part 1: <answer>
+Part 2: <answer>
+
+Rules:
+- Output ONLY the complete source code
+- No explanations or markdown formatting
+- Ensure the solution is correct and reasonably efficient
+- Follow idiomatic style for the chosen language
+
+Generate the solution now.
+\end{lstlisting}
+
+\section{Repair Prompt}
+If the experimental design includes one repair attempt after failure, the following standardized repair prompt can be used:
+
+\begin{lstlisting}
+The previous solution failed.
+
+Error:
+{ERROR_MESSAGE}
+
+Fix the solution.
+
+Requirements:
+- Same input/output format
+- Output ONLY corrected source code
+- No explanations or markdown
+
+Provide the full corrected program.
+\end{lstlisting}
+
+\section{Evaluation Metrics}
+The following metrics are collected for each run.
+
+\subsection{Correctness}
+Correctness is measured by comparing the program output to the expected output. A run is considered correct only if both parts match exactly.
+
+\subsection{Compile Success}
+For Rust, compile success is recorded as a binary metric. This is especially important because syntactically plausible Rust code may still fail due to type, ownership, or borrowing issues.
+
+\subsection{Runtime}
+Runtime is measured over repeated runs. Median runtime is used instead of a single run in order to reduce noise from background system activity or scheduling variation.
+
+\subsection{Memory Usage}
+Memory usage is measured using maximum resident set size or an equivalent system-level metric.
+
+\subsection{Lines of Code}
+Lines of code are collected as a simple structural indicator of code size and verbosity.
+
+\section{Execution Procedure}
+Each experiment follows the same pipeline:
+\begin{enumerate}
+    \item Submit the prompt to the selected model.
+    \item Save the raw generated code.
+    \item Compile the solution if required.
+    \item Execute the program on the fixed input.
+    \item Record output, runtime, memory usage, and errors.
+    \item Compare the output to the expected results.
+\end{enumerate}
+
+\section{Failure Rules}
+The following outcomes are defined before running the benchmark:
+
+\begin{table}[H]
+\centering
+\caption{Failure rules}
+\begin{tabular}{ll}
+\toprule
+Case & Interpretation \\
+\midrule
+Compile fails & failure \\
+Runtime error & failure \\
+Timeout & failure \\
+Wrong output & incorrect \\
+Output format incorrect & failure \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Threats to Validity}
+Several factors may threaten the validity of the results:
+\begin{itemize}
+    \item prompt sensitivity,
+    \item model updates over time,
+    \item limited benchmark size,
+    \item and the fact that Advent of Code covers only one style of programming task.
+\end{itemize}
+
+These limitations are discussed again in Chapter 7.
+
+\chapter{Implementation}
+
+\section{Benchmark Environment}
+All experiments are executed on the same hardware and software environment. The thesis should document:
+\begin{itemize}
+    \item CPU,
+    \item RAM,
+    \item operating system,
+    \item Python version,
+    \item Rust version,
+    \item and any benchmark tools used.
+\end{itemize}
+
+\section{Repository Structure}
+A reproducible repository structure helps keep the benchmark organized. One possible structure is shown below.
+
+\begin{lstlisting}
+aoc-llm-benchmark/
+|-- prompts/
+|-- problems/
+|-- generated/
+|   |-- codex/
+|   |   |-- python/
+|   |   `-- rust/
+|   `-- sonnet/
+|       |-- python/
+|       `-- rust/
+|-- runner/
+|-- results/
+`-- thesis_notes/
+\end{lstlisting}
+
+\section{CLI-Based Generation Workflow}
+The benchmark uses the command-line interfaces of both systems so that all runs can be scripted and logged consistently. The main idea is:
+\begin{enumerate}
+    \item provide the same prompt structure to each system,
+    \item save the returned code to the proper output file,
+    \item compile and run the solution automatically,
+    \item and store all logs in a results directory.
+\end{enumerate}
+
+\section{Controlled Benchmarking Workflow}
+A proper run should follow this order:
+\begin{enumerate}
+    \item clean output folders,
+    \item generate code,
+    \item save raw outputs,
+    \item compile or execute,
+    \item collect metrics,
+    \item store result tables,
+    \item commit the state or tag the run.
+\end{enumerate}
+
+\section{Validation and Measurement}
+Correctness is validated against expected outputs stored for each Advent of Code problem. Runtime is measured using repeated executions and summarized using the median value. Memory usage is collected using system-level resource measurement tools. Lines of code are counted directly from the generated source files.
+
+\section{Example Data Collection Table}
+A structured CSV or JSON file should record at least the following fields:
+
+\begin{table}[H]
+\centering
+\caption{Example benchmark data schema}
+\begin{tabular}{lllllll}
+\toprule
+Problem & Model & Language & Correct & Runtime & Memory & LOC \\
+\midrule
+Day01 & Codex & Python & 1 & 0.12 & 15 MB & 45 \\
+Day01 & Codex & Rust   & 1 & 0.03 & 6 MB  & 62 \\
+Day01 & Sonnet & Python & 0 & 0.18 & 17 MB & 48 \\
+Day01 & Sonnet & Rust   & 0 & --   & --    & 58 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Why This Setup Is Scientific}
+This implementation strategy supports scientific evaluation because it:
+\begin{itemize}
+    \item minimizes manual intervention,
+    \item preserves raw outputs,
+    \item makes all runs repeatable,
+    \item and allows direct comparison across models and languages.
+\end{itemize}
+
+\chapter{Results}
+
+\section{Overview}
+This chapter presents the benchmark results for correctness, runtime, memory usage, compile success, and code size. The exact values in the example tables below are placeholders and should be replaced with actual benchmark measurements.
+
+\section{Correctness}
+Correctness rates can be summarized by model and language.
+
+\begin{table}[H]
+\centering
+\caption{Correctness rates by model and language}
+\label{tab:correctness}
+\begin{tabular}{lcc}
+\toprule
+Model & Python & Rust \\
+\midrule
+Codex  & 0.00 & 0.00 \\
+Sonnet & 0.00 & 0.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The interpretation of this table should explain whether one model achieved higher success rates overall and whether the target language had a noticeable effect on correctness.
+
+\section{Compile Success}
+Compile success is especially relevant for Rust.
+
+\begin{table}[H]
+\centering
+\caption{Compile success rates for Rust solutions}
+\begin{tabular}{lc}
+\toprule
+Model & Compile Success Rate \\
+\midrule
+Codex & 0.00 \\
+Sonnet & 0.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Runtime}
+Runtime measurements should be reported using repeated executions and median values.
+
+\begin{table}[H]
+\centering
+\caption{Example runtime results}
+\begin{tabular}{lccc}
+\toprule
+Problem & Model & Language & Median Runtime (s) \\
+\midrule
+Day 1 & Codex & Python & 0.00 \\
+Day 1 & Codex & Rust   & 0.00 \\
+Day 1 & Sonnet & Python & 0.00 \\
+Day 1 & Sonnet & Rust   & 0.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Memory Usage}
+Memory usage should be summarized in a similar way, for example using peak resident memory.
+
+\begin{table}[H]
+\centering
+\caption{Example memory usage results}
+\begin{tabular}{lccc}
+\toprule
+Problem & Model & Language & Peak Memory (MB) \\
+\midrule
+Day 1 & Codex & Python & 0.00 \\
+Day 1 & Codex & Rust   & 0.00 \\
+Day 1 & Sonnet & Python & 0.00 \\
+Day 1 & Sonnet & Rust   & 0.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Code Size}
+Lines of code can be used as a simple structural measure.
+
+\begin{table}[H]
+\centering
+\caption{Example code size results}
+\begin{tabular}{lccc}
+\toprule
+Problem & Model & Language & LOC \\
+\midrule
+Day 1 & Codex & Python & 0 \\
+Day 1 & Codex & Rust   & 0 \\
+Day 1 & Sonnet & Python & 0 \\
+Day 1 & Sonnet & Rust   & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Error Categories}
+It is useful to group failures into qualitative categories. Possible categories include:
+\begin{itemize}
+    \item parsing failures,
+    \item logic errors,
+    \item output formatting errors,
+    \item inefficient algorithms,
+    \item and Rust-specific compile failures.
+\end{itemize}
+
+\section{Figures}
+You can also include plots. Example figure placement:
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox[c][5cm][c]{0.8\textwidth}{\centering Placeholder for runtime plot}}
+    \caption{Median runtime by model and language}
+    \label{fig:runtime}
+\end{figure}
+
+\chapter{Discussion}
+
+\section{Interpretation of Results}
+The discussion chapter should interpret the measured results rather than only repeating tables. Typical questions include:
+\begin{itemize}
+    \item Which model solved more tasks correctly?
+    \item Did one model perform better on specific problem categories?
+    \item Were Python solutions more reliable than Rust solutions?
+    \item Did runtime advantages of Rust appear consistently?
+\end{itemize}
+
+\section{Model Comparison}
+The comparison between Codex and Sonnet should consider both quantitative and qualitative outcomes. One model may perform better in correctness while the other may generate more concise or more idiomatic code.
+
+\section{Language Comparison}
+A likely finding is that Python solutions are more concise and more likely to run on the first attempt, whereas Rust solutions may offer better runtime performance when they compile successfully. This would suggest that the target language influences not only execution characteristics but also the difficulty of generation itself.
+
+\section{Error Analysis}
+Error analysis is one of the strongest parts of an empirical thesis. Instead of reporting only aggregate success rates, the thesis should classify failures and discuss patterns. Examples:
+\begin{itemize}
+    \item misunderstanding of the second part of the puzzle,
+    \item hidden assumptions based on the example input,
+    \item brute-force approaches that do not scale,
+    \item and language-specific issues such as ownership problems in Rust.
+\end{itemize}
+
+\section{Limitations}
+This study has several limitations:
+\begin{itemize}
+    \item only a limited number of Advent of Code tasks are included,
+    \item models may change over time,
+    \item prompt phrasing may still influence results,
+    \item and the benchmark focuses on one class of programming problems.
+\end{itemize}
+
+\section{Implications}
+The findings can inform both academic research and practical tool usage. If large language models perform well on simpler algorithmic tasks but struggle on more complex stateful or optimization-heavy problems, this suggests that they can be useful assistants but should not be treated as fully reliable autonomous problem solvers.
+
+\chapter{Conclusion}
+
+\section{Summary}
+This thesis benchmarked large language models on Advent of Code tasks and compared generated Python and Rust solutions. The evaluation focused on correctness, compile success, runtime, memory usage, and code size under controlled conditions.
+
+\section{Answer to the Research Question}
+The study is designed to determine how effectively large language models solve algorithmic programming tasks and how their behavior differs between Python and Rust. The final answer should summarize the measured differences in correctness, efficiency, and reliability across both model and language.
+
+\section{Future Work}
+Future work could extend the benchmark in several directions:
+\begin{itemize}
+    \item evaluating more models,
+    \item increasing the number of Advent of Code tasks,
+    \item including additional target languages,
+    \item studying multi-turn repair settings,
+    \item or comparing generated code to human-written baseline solutions.
+\end{itemize}
+
+\appendix
+
+\chapter{Appendix}
+
+\section{Complete Benchmark Prompt}
+\begin{lstlisting}
+You are participating in a controlled benchmark for code generation.
+
+Solve the programming problem described in:
+{PROBLEM_FILE}
+
+Requirements:
+- Language: {LANGUAGE}
+- Read input from: {INPUT_FILE}
+- No external libraries
+- Handle full input correctly (not just examples)
+
+Output EXACTLY:
+Part 1: <answer>
+Part 2: <answer>
+
+Rules:
+- Output ONLY the complete source code
+- No explanations or markdown formatting
+- Ensure the solution is correct and reasonably efficient
+- Follow idiomatic style for the chosen language
+
+Generate the solution now.
+\end{lstlisting}
+
+\section{Complete Repair Prompt}
+\begin{lstlisting}
+The previous solution failed.
+
+Error:
+{ERROR_MESSAGE}
+
+Fix the solution.
+
+Requirements:
+- Same input/output format
+- Output ONLY corrected source code
+- No explanations or markdown
+
+Provide the full corrected program.
+\end{lstlisting}
+
+\section{Guidelines for Proper and Scientific Benchmarking}
+For the written thesis, the methodology chapter should make the following points explicit:
+\begin{itemize}
+    \item The benchmark is an empirical study.
+    \item Independent variables are model and language.
+    \item Dependent variables are correctness, runtime, memory usage, compile success, and LOC.
+    \item Controlled variables include prompt template, hardware, software environment, and problem set.
+    \item No manual edits are applied before scoring.
+    \item Failures are logged and reported, not hidden.
+    \item Runtime is measured across repeated runs and summarized using medians.
+\end{itemize}
+
+\section{Suggested Page Distribution}
+A reasonable page distribution for a thesis of about 35 pages is:
+\begin{center}
+\begin{tabular}{lr}
+\toprule
+Chapter & Suggested Length \\
+\midrule
+Introduction & 3--4 pages \\
+Background & 5--6 pages \\
+Related Work & 4--5 pages \\
+Methodology & 6--7 pages \\
+Implementation & 4--5 pages \\
+Results & 8--10 pages \\
+Discussion & 4--5 pages \\
+Conclusion & 2--3 pages \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\printbibliography
+
+\end{document}

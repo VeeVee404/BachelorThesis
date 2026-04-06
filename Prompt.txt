@@ -1,10 +1,10 @@
 Solve the programming problem described in:
-{PROBLEM_FILE}
+{PROBLEM STATEMENT}
 
 Requirements:
 - Language: {LANGUAGE}
-- Read input from: {INPUT_FILE}
-- Put the code into the file: {OUTPUT_FILE}
+- Read input from: {INPUT}
+- Put the code into the file: {OUTPUT}
 - No external libraries
 - Handle full input correctly
 
