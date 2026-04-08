@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.3.15)  5 APR 2026 21:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.3.15)  8 APR 2026 17:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -838,10 +838,8 @@ Package: xparse 2025-10-09 L3 Experimental document command parser
 Package: blx-case-expl3 2025/07/10 v3.21 expl3 case changing code for biblatex
 ))
 
-LaTeX Info: Writing file `./layout.bib'.
-
-\openout15 = `layout.bib'.
-
+LaTeX Info: File `layout.bib' already exists on the system.
+            Not generating it from this source.
 
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
@@ -852,7 +850,7 @@ LaTeX Font Info:    Trying to load font information for T1+lmr on input line 91
 (C:\Users\Vanessa\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-No file layout.aux.
+(layout.aux)
 \openout1 = `layout.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 91.
@@ -873,6 +871,7 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 91.
 LaTeX Font Info:    ... okay on input line 91.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 91.
 LaTeX Font Info:    ... okay on input line 91.
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -942,6 +941,7 @@ Package translations Info: loading dictionary `translations-basic-dictionary' f
 or `english'. on input line 91.
 \c@lstlisting=\count489
 Package hyperref Info: Link coloring ON on input line 91.
+ (layout.out) (layout.out)
 \@outlinefile=\write4
 \openout4 = `layout.out'.
 
@@ -969,33 +969,69 @@ Package biblatex Info: Reference segment=0 on input line 91.
 nessa/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}] [1
 
 ]
+(layout.toc
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 3
+.
+
+(C:\Users\Vanessa\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
+File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 3
+.
+
+(C:\Users\Vanessa\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
+File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
+3.
+
+(C:\Users\Vanessa\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd
+File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
+3.
+
+(C:\Users\Vanessa\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd
+File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 3.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 3.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 3.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 3.
+
+(C:\Users\Vanessa\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 3.
+
+(C:\Users\Vanessa\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
 [2
 
-]
-No file layout.toc.
+])
 \tf@toc=\write5
 \openout5 = `layout.toc'.
 
-[3
-
-]
-No file layout.lof.
+ [3] (layout.lof)
 \tf@lof=\write6
 \openout6 = `layout.lof'.
 
-[4
+ [4
 
-]
-No file layout.lot.
+] (layout.lot)
 \tf@lot=\write7
 \openout7 = `layout.lot'.
 
-[5
+ [5
 
 ]
 Chapter 1.
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
-37.
+36.
 (C:\Users\Vanessa\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -1003,112 +1039,54 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.148     \item
+l.147     \item
                 correctness, [1
 
 
 {C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}]
  [2]
 Chapter 2.
-
-LaTeX Warning: Citation 'chen2021codex' on page 3 undefined on input line 176.
-
-
-LaTeX Warning: Citation 'openai2023gpt4' on page 3 undefined on input line 176.
-
-
-
-LaTeX Warning: Citation 'aoc' on page 3 undefined on input line 193.
-
 [3
 
-] [4]
+]
+
+LaTeX Warning: Citation 'aoc' on page 4 undefined on input line 193.
+
+[4] [5]
 Chapter 3.
+[6
 
-LaTeX Warning: Citation 'chen2021codex' on page 5 undefined on input line 209.
-
-
-LaTeX Warning: Citation 'austin2021programsynthesis' on page 5 undefined on inp
-ut line 209.
-
-[5
-
-] [6]
-Chapter 4.
-[7
-
-] [8]
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 3
-05.
- (C:\Users\Vanessa\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
-File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 3
-05.
-(C:\Users\Vanessa\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
-File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-305.
-
-(C:\Users\Vanessa\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd
-File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-305.
-
-(C:\Users\Vanessa\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd
-File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 305.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 305.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 305.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 305
-.
-
-(C:\Users\Vanessa\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 305
-.
-
-(C:\Users\Vanessa\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
-22.
+] [7] [8]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
+94.
 
 (C:\Users\Vanessa\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 [9] [10] [11] [12]
-Chapter 5.
+Chapter 4.
 [13
 
 ] [14] [15]
-Chapter 6.
+Chapter 5.
 [16
 
-] [17] [18]
-Chapter 7.
-[19
+] [17]
+Chapter 6.
+[18
 
-] [20]
-Chapter 8.
-[21
+] [19]
+Chapter 7.
+[20
 
 ]
 Appendix A.
-[22
 
-] [23]
+LaTeX Warning: Empty bibliography on input line 546.
 
-LaTeX Warning: Empty bibliography on input line 756.
+[21
 
-[24] (layout.aux)
+] (layout.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
@@ -1117,17 +1095,8 @@ L3 programming layer <2025-12-24>
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `layout.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `layout.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  EB74AA256A819E450625AA247351D03D;9998.
+Package rerunfilecheck Info: File `layout.out' has not changed.
+(rerunfilecheck)             Checksum: C89E55A8BA760DCA78E608DA75192360;8267.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                layout
@@ -1138,22 +1107,24 @@ Package logreq Info: Writing requests to 'layout.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 26623 strings out of 467870
- 512415 string characters out of 5417387
- 1466400 words of memory out of 5000000
- 54990 multiletter control sequences out of 15000+600000
- 672053 words of font info for 71 fonts, out of 8000000 for 9000
+ 26628 strings out of 467870
+ 513013 string characters out of 5417387
+ 1479547 words of memory out of 5000000
+ 55049 multiletter control sequences out of 15000+600000
+ 676315 words of font info for 72 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,8n,80p,1201b,2617s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,8n,80p,1201b,2887s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.
 pfb><C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12
 .pfb><C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr1
 7.pfb><C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr
-6.pfb><C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmt
-t10.pfb>
-Output written on layout.pdf (30 pages, 218691 bytes).
+6.pfb><C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr
+i12.pfb><C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/l
+mtt10.pfb><C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm
+/lmtt12.pfb>
+Output written on layout.pdf (27 pages, 273155 bytes).
 PDF statistics:
- 396 PDF objects out of 1000 (max. 8388607)
- 219 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 554 PDF objects out of 1000 (max. 8388607)
+ 152 named destinations out of 1000 (max. 500000)
+ 473 words of extra memory for PDF output out of 10000 (max. 10000000)
 
