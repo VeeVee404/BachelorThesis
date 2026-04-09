@@ -296,7 +296,7 @@ fn parse_f64(args: &[OsString], flag: &str, default: f64) -> Result<f64, String>
 
 fn main() {
     let args: Vec<OsString> = env::args_os().collect();
-    let repeats = parse_usize(&args, "--repeats", 5).unwrap_or_else(|msg| {
+    let repeats = parse_usize(&args, "--repeats", 10).unwrap_or_else(|msg| {
         eprintln!("{msg}");
         std::process::exit(2);
     });

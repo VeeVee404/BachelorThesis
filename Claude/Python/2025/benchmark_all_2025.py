@@ -146,7 +146,7 @@ def bench(solution: Path, repeats: int, warmups: int, timeout: float) -> tuple[s
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--repeats", type=int, default=5)
+    parser.add_argument("--repeats", type=int, default=10)
     parser.add_argument("--warmups", type=int, default=1)
     parser.add_argument("--timeout", type=float, default=30.0)
     args = parser.parse_args()
