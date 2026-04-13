@@ -33,7 +33,7 @@
     citecolor=black,
     urlcolor=blue,
     pdftitle={Benchmarking Large Language Models on Algorithmic Programming Tasks},
-    pdfauthor={Your Name}
+    pdfauthor={Kobler Vanessa}
 }
 
 \usepackage{csquotes}
@@ -100,12 +100,12 @@
     \vspace{0.5cm}
     {\Large A Case Study Using Advent of Code with Python and Rust\par}
     \vspace{2cm}
-    {\large Your Name\par}
+    {\large Kobler Vanessa\par}
     \vfill
     \begin{flushleft}
-        Supervisor: Prof.\ Dr.\ Name \\
+        Supervisor: Univ.-Prof.\ Dr.\ Wolfgang Pree \\
         Degree Program: Computer Science \\
-        Submission Date: \today
+        Submission Date: TBA
     \end{flushleft}
 \end{titlepage}
 
@@ -387,14 +387,14 @@ There are several potential threats to the validity of the results. For example,
 \chapter{Implementation}
 
 \section{Benchmark Environment}
-All experiments are executed on the same hardware and software environment. The thesis should document:
+All experiments are executed on the same hardware and software environment. 
 \begin{itemize}
-    \item CPU,
-    \item RAM,
-    \item operating system,
-    \item Python version,
-    \item Rust version,
-    \item and any benchmark tools used.
+    \item CPU: AMD Ryzen 3 4300GE
+    \item RAM: 16GB
+    \item Operating system: Virtual Ubuntu environment on Windows 11 
+    \item Python version: Python (v3.14.2)
+    \item Rust version: Rust (v1.94.1)
+    \item Development environment: Visual Studio Code (v1.115.0)
 \end{itemize}
 
 \section{Repository Structure}
@@ -440,23 +440,6 @@ The general workflow includes the following steps:
 \section{Validation and Measurement}
 Correctness is validated against expected outputs stored for each Advent of Code problem. Runtime is measured using repeated executions and summarized using the median value. Memory usage is collected using the GNU time function. Lines of code are counted directly from the generated source files.
 
-\section{Example Data Collection Table}
-A structured Excel sheet is used to document all the results like in the following example:
-
-\begin{table}[H]
-\centering
-\caption{Example benchmark data schema}
-\begin{tabular}{lllllll}
-\toprule
-Problem & Model & Language & Correct & Runtime & Memory & LOC \\
-\midrule
-Day01 & Codex & Python & 1 & 0.12 & 15 MB & 45 \\
-Day01 & Codex & Rust   & 1 & 0.03 & 6 MB  & 62 \\
-Day01 & Sonnet & Python & 0 & 0.18 & 17 MB & 48 \\
-Day01 & Sonnet & Rust   & 0 & --   & --    & 58 \\
-\bottomrule
-\end{tabular}
-\end{table}
 
 
 \chapter{Results}

@@ -38,23 +38,22 @@
 \contentsline {section}{\numberline {4.2}Repository Structure}{13}{section.4.2}%
 \contentsline {section}{\numberline {4.3}CLI-Based Generation Workflow}{14}{section.4.3}%
 \contentsline {section}{\numberline {4.4}Validation and Measurement}{14}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Example Data Collection Table}{14}{section.4.5}%
-\contentsline {chapter}{\numberline {5}Results}{16}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Overview}{16}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Correctness}{16}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Compile Success}{16}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Runtime}{16}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Memory Usage}{16}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Code Size}{17}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Algorithmic Evaluation}{17}{section.5.7}%
-\contentsline {section}{\numberline {5.8}Figures}{17}{section.5.8}%
-\contentsline {section}{\numberline {5.9}Possible section: Generation time}{17}{section.5.9}%
-\contentsline {chapter}{\numberline {6}Discussion}{18}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Interpretation of Results}{18}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Model Comparison}{18}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Language Comparison}{18}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Limitations}{18}{section.6.4}%
-\contentsline {chapter}{\numberline {7}Conclusion}{20}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Summary}{20}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Answer to the Research Question}{20}{section.7.2}%
-\contentsline {chapter}{\numberline {A}Appendix}{21}{appendix.A}%
+\contentsline {chapter}{\numberline {5}Results}{15}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Overview}{15}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Correctness}{15}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Compile Success}{15}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Runtime}{15}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Memory Usage}{15}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Code Size}{16}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Algorithmic Evaluation}{16}{section.5.7}%
+\contentsline {section}{\numberline {5.8}Figures}{16}{section.5.8}%
+\contentsline {section}{\numberline {5.9}Possible section: Generation time}{16}{section.5.9}%
+\contentsline {chapter}{\numberline {6}Discussion}{17}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Interpretation of Results}{17}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Model Comparison}{17}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Language Comparison}{17}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Limitations}{17}{section.6.4}%
+\contentsline {chapter}{\numberline {7}Conclusion}{19}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Summary}{19}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Answer to the Research Question}{19}{section.7.2}%
+\contentsline {chapter}{\numberline {A}Appendix}{20}{appendix.A}%
