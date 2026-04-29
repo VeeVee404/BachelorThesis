@@ -1,0 +1,69 @@
+Python/Claude/2024
+
+Day1b_Solution_2024.py: mean= 34.248 ms min= 31.461 ms max= 40.697 ms stddev= 3.572 ms memory_mean= 7.305 MiB memory_min= 7.301 MiB memory_max= 7.309 MiB (10 measured runs)
+Day2b_Solution_2024.py: mean= 37.333 ms min= 37.106 ms max= 37.828 ms stddev= 0.224 ms memory_mean= 7.034 MiB memory_min= 7.031 MiB memory_max= 7.035 MiB (10 measured runs)
+Day12b_Solution_2024.py: mean= 89.125 ms min= 86.516 ms max= 94.632 ms stddev= 2.652 ms memory_mean= 7.129 MiB memory_min= 7.125 MiB memory_max= 7.133 MiB (10 measured runs)
+Day13b_Solution_2024.py: mean= 37.694 ms min= 36.356 ms max= 42.121 ms stddev= 1.879 ms memory_mean= 7.524 MiB memory_min= 7.520 MiB memory_max= 7.527 MiB (10 measured runs)
+Day24b_Solution_2024.py: mean= 38.423 ms min= 35.695 ms max= 41.291 ms stddev= 2.168 ms memory_mean= 7.594 MiB memory_min= 7.594 MiB memory_max= 7.594 MiB (10 measured runs)
+
+
+Rust/Claude/2024
+[OK] Day1b_Solution_2024.rs: mean= 11.970 ms min= 11.529 ms max= 13.009 ms stddev= 0.423 ms memory_mean= 0.963 MiB memory_min= 0.961 MiB memory_max= 0.965 MiB (10 measured runs)
+[OK] Day2b_Solution_2024.rs: mean= 11.963 ms min= 11.561 ms max= 12.061 ms stddev= 0.143 ms memory_mean= 0.921 MiB memory_min= 0.918 MiB memory_max= 0.922 MiB (10 measured runs)
+[OK] Day12b_Solution_2024.rs: mean= 11.835 ms min= 11.549 ms max= 12.057 ms stddev= 0.203 ms memory_mean= 1.006 MiB memory_min= 1.004 MiB memory_max= 1.008 MiB (10 measured runs)
+[OK] Day13b_Solution_2024.rs: mean= 11.681 ms min= 11.503 ms max= 12.031 ms stddev= 0.192 ms memory_mean= 0.943 MiB memory_min= 0.941 MiB memory_max= 0.945 MiB (10 measured runs)
+[OK] Day24b_Solution_2024.rs: mean= 12.029 ms min= 11.725 ms max= 12.547 ms stddev= 0.202 ms memory_mean= 1.022 MiB memory_min= 1.020 MiB memory_max= 1.023 MiB (10 measured runs)
+
+
+
+
+
+Python/Codex/2024
+
+[OK] Day1b_Solution_2024.py: mean= 32.326 ms min= 31.387 ms max= 33.257 ms stddev= 0.570 ms memory_mean= 6.984 MiB memory_min= 6.980 MiB memory_max= 6.988 MiB (10 measured runs)
+[OK] Day2b_Solution_2024.py: mean= 33.799 ms min= 33.237 ms max= 34.659 ms stddev= 0.405 ms memory_mean= 6.973 MiB memory_min= 6.969 MiB memory_max= 6.977 MiB (10 measured runs)
+Day12b_Solution_2024.py: mean= 45.542 ms min= 44.152 ms max= 49.710 ms stddev= 1.821 ms memory_mean= 7.204 MiB memory_min= 7.203 MiB memory_max= 7.207 MiB (10 measured runs)
+[OK] Day13b_Solution_2024.py: mean= 32.775 ms min= 31.931 ms max= 33.740 ms stddev= 0.562 ms memory_mean= 7.380 MiB memory_min= 7.375 MiB memory_max= 7.383 MiB (10 measured runs)
+[OK] Day24b_Solution_2024.py: mean= 33.328 ms min= 32.093 ms max= 36.354 ms stddev= 1.524 ms memory_mean= 7.207 MiB memory_min= 7.203 MiB memory_max= 7.211 MiB (10 measured runs)
+
+Rust/Codex/2024
+
+[OK] Day1b_Solution.rs: mean= 11.954 ms min= 11.532 ms max= 12.020 ms stddev= 0.148 ms memory_mean= 0.967 MiB memory_min= 0.965 MiB memory_max= 0.969 MiB (10 measured runs)
+[OK] Day2b_Solution.rs: mean= 11.986 ms min= 11.602 ms max= 12.500 ms stddev= 0.228 ms memory_mean= 0.924 MiB memory_min= 0.922 MiB memory_max= 0.926 MiB (10 measured runs)
+[OK] Day12b_Solution.rs: mean= 11.962 ms min= 11.564 ms max= 12.032 ms stddev= 0.141 ms memory_mean= 1.007 MiB memory_min= 1.004 MiB memory_max= 1.012 MiB (10 measured runs)
+[OK] Day13b_Solution.rs: mean= 11.832 ms min= 11.531 ms max= 12.024 ms stddev= 0.223 ms memory_mean= 0.963 MiB memory_min= 0.961 MiB memory_max= 0.965 MiB (10 measured runs)
+[OK] Day24b_Solution.rs: mean= 11.956 ms min= 11.502 ms max= 12.938 ms stddev= 0.410 ms memory_mean= 1.096 MiB memory_min= 1.094 MiB memory_max= 1.098 MiB (10 measured runs)
+
+
+
+Python/Claude/2025
+
+[OK] Day1b_Solution_2025.py: mean= 33.666 ms min= 33.092 ms max= 35.946 ms stddev= 0.839 ms memory_mean= 7.141 MiB memory_min= 7.137 MiB memory_max= 7.145 MiB (10 measured runs)
+[OK] Day2b_Solution_2025.py: mean= 147.632 ms min= 141.017 ms max= 154.267 ms stddev= 4.158 ms memory_mean= 15.464 MiB memory_min= 15.457 MiB memory_max= 15.469 MiB (10 measured runs)
+[OK] Day6b_Solution_2025.py: mean= 37.838 ms min= 36.281 ms max= 42.000 ms stddev= 1.761 ms memory_mean= 7.157 MiB memory_min= 7.156 MiB memory_max= 7.160 MiB (10 measured runs)
+[OK] Day7b_Solution_2025.py: mean= 36.393 ms min= 35.461 ms max= 40.551 ms stddev= 1.515 ms memory_mean= 7.878 MiB memory_min= 7.875 MiB memory_max= 7.883 MiB (10 measured runs)
+[OK] Day11b_Solution_2025.py: mean= 32.506 ms min= 32.135 ms max= 33.355 ms stddev= 0.442 ms memory_mean= 7.207 MiB memory_min= 7.203 MiB memory_max= 7.211 MiB (10 measured runs)
+
+Rust/claude/2025
+
+[OK] Day1b_Solution_2025.rs: mean= 11.990 ms min= 11.493 ms max= 12.579 ms stddev= 0.285 ms memory_mean= 0.915 MiB memory_min= 0.910 MiB memory_max= 0.918 MiB (10 measured runs)
+[OK] Day2b_Solution_2025.rs: mean= 13.003 ms min= 11.971 ms max= 22.030 ms stddev= 3.172 ms memory_mean= 0.939 MiB memory_min= 0.938 MiB memory_max= 0.941 MiB (10 measured runs)
+[OK] Day6b_Solution_2025.rs: mean= 13.271 ms min= 11.975 ms max= 24.009 ms stddev= 3.775 ms memory_mean= 1.018 MiB memory_min= 1.016 MiB memory_max= 1.020 MiB (10 measured runs)
+[OK] Day7b_Solution_2025.rs: mean= 11.997 ms min= 11.923 ms max= 12.107 ms stddev= 0.046 ms memory_mean= 1.026 MiB memory_min= 1.023 MiB memory_max= 1.027 MiB (10 measured runs)
+[OK] Day11b_Solution_2025.rs: mean= 11.911 ms min= 11.524 ms max= 12.049 ms stddev= 0.191 ms memory_mean= 1.273 MiB memory_min= 1.270 MiB memory_max= 1.273 MiB (10 measured runs)
+
+Python/Codex/2025
+
+[OK] Day1b_Solution_2025.py: mean= 33.673 ms min= 32.358 ms max= 36.874 ms stddev= 1.560 ms memory_mean= 6.918 MiB memory_min= 6.914 MiB memory_max= 6.922 MiB (10 measured runs)
+[OK] Day2b_Solution_2025.py: mean= 100.091 ms min= 95.986 ms max= 106.628 ms stddev= 3.924 ms memory_mean= 15.828 MiB memory_min= 15.824 MiB memory_max= 15.832 MiB (10 measured runs)
+[OK] Day6b_Solution_2025.py: mean= 34.758 ms min= 34.131 ms max= 36.002 ms stddev= 0.565 ms memory_mean= 7.095 MiB memory_min= 7.094 MiB memory_max= 7.098 MiB (10 measured runs)
+[OK] Day7b_Solution_2025.py: mean= 32.560 ms min= 30.833 ms max= 34.333 ms stddev= 1.068 ms memory_mean= 6.953 MiB memory_min= 6.949 MiB memory_max= 6.953 MiB (10 measured runs)
+[OK] Day11b_Solution_2025.py: mean= 34.288 ms min= 32.366 ms max= 40.336 ms stddev= 2.593 ms memory_mean= 7.207 MiB memory_min= 7.203 MiB memory_max= 7.215 MiB (10 measured runs)
+
+Rust/Codex/2025
+
+[OK] Day1b_Solution_2025.rs: mean= 12.002 ms min= 11.960 ms max= 12.041 ms stddev= 0.025 ms memory_mean= 0.924 MiB memory_min= 0.922 MiB memory_max= 0.926 MiB (10 measured runs)
+[OK] Day2b_Solution_2025.rs: mean= 22.595 ms min= 22.036 ms max= 23.428 ms stddev= 0.543 ms memory_mean= 2.006 MiB memory_min= 2.004 MiB memory_max= 2.008 MiB (10 measured runs)
+[OK] Day6b_Solution_2025.rs: mean= 11.999 ms min= 11.941 ms max= 12.064 ms stddev= 0.037 ms memory_mean= 0.938 MiB memory_min= 0.934 MiB memory_max= 0.941 MiB (10 measured runs)
+[OK] Day7b_Solution_2025.rs: mean= 12.365 ms min= 11.954 ms max= 13.840 ms stddev= 0.648 ms memory_mean= 0.930 MiB memory_min= 0.926 MiB memory_max= 0.934 MiB (10 measured runs)
+[OK] Day11b_Solution_2025.rs: mean= 12.001 ms min= 11.966 ms max= 12.037 ms stddev= 0.024 ms memory_mean= 1.278 MiB memory_min= 1.273 MiB memory_max= 1.281 MiB (10 measured runs)

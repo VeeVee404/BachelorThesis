@@ -15,7 +15,7 @@ fn discover(base: &Path) -> std::io::Result<Vec<PathBuf>> {
     for entry in fs::read_dir(base)? {
         let path = entry?.path();
         let Some(name) = path.file_name().and_then(|v| v.to_str()) else { continue; };
-        if name.starts_with("Day") && name.ends_with("_Solution_2024.rs") {
+        if name.starts_with("Day") && name.ends_with("_Solution.rs") {
             files.push(path);
         }
     }

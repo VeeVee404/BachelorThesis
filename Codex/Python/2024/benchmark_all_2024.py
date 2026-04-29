@@ -40,7 +40,7 @@ TIME_BINARY = detect_time_binary()
 
 
 def discover(base: Path) -> list[Path]:
-    return sorted(base.glob(f"Day*_Solution_{YEAR}.py"))
+    return sorted(base.glob(f"Day*b_Solution_{YEAR}.py"))
 
 
 def clean(stdout: str) -> str:
@@ -95,12 +95,12 @@ def run_once(solution: Path, timeout: float) -> RunResult:
 def memory_stats(samples: list[int | None]) -> str:
     measured = [sample for sample in samples if sample is not None]
     if not measured:
-        return "memory=n/a (GNU time not available)"
+        return "memory= n/a (GNU time not available)"
     mean_kb = statistics.fmean(measured)
     return (
-        f"memory_mean={mean_kb / 1024.0:.3f} MiB "
-        f"memory_min={min(measured) / 1024.0:.3f} MiB "
-        f"memory_max={max(measured) / 1024.0:.3f} MiB"
+        f"memory_mean= {mean_kb / 1024.0:.3f} MiB "
+        f"memory_min= {min(measured) / 1024.0:.3f} MiB "
+        f"memory_max= {max(measured) / 1024.0:.3f} MiB"
     )
 
 
@@ -139,8 +139,8 @@ def bench(solution: Path, repeats: int, warmups: int, timeout: float) -> tuple[s
     avg = statistics.fmean(samples)
     sigma = statistics.stdev(samples) if len(samples) > 1 else 0.0
     return "OK", (
-        f"mean={avg:.3f} ms min={min(samples):.3f} ms max={max(samples):.3f} ms "
-        f"stddev={sigma:.3f} ms {memory_stats(memory_samples)} ({repeats} measured runs)"
+        f"mean= {avg:.3f} ms min= {min(samples):.3f} ms max= {max(samples):.3f} ms "
+        f"stddev= {sigma:.3f} ms {memory_stats(memory_samples)} ({repeats} measured runs)"
     )
 
 

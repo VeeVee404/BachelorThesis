@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python Day1b_Solution_2024.py)",
+      "Bash(python Day12b_Solution_2024.py)",
+      "Bash(python Day13b_Solution_2024.py)",
+      "Bash(python Day24b_Solution_2024.py)"
+    ]
+  }
+}

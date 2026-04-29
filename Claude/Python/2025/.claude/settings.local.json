@@ -3,7 +3,10 @@
     "allow": [
       "Bash(python Day1_Solution_2025.py)",
       "Bash(python Day7_Solution_2025.py)",
-      "Bash(python Day11_Solution_2025.py)"
+      "Bash(python Day11_Solution_2025.py)",
+      "Bash(python Day1b_Solution_2025.py)",
+      "Bash(python Day7b_Solution_2025.py)",
+      "Bash(python Day11b_Solution_2025.py)"
     ]
   }
 }
