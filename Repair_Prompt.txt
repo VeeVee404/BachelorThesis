@@ -1,0 +1,10 @@
+The previous solution failed.
+
+Error:
+{ERROR_MESSAGE}
+
+Fix the solution.
+
+Requirements:
+- Same input/output format
+- Output ONLY corrected source code
