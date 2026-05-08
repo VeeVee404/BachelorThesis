@@ -1,0 +1,14 @@
+You are evaluating code quality.
+
+Score the following dimensions from 1 (poor) to 5 (excellent):
+
+1. Readability
+2. Structure
+3. Idiomatic use of the language
+4. Unnecessary complexity
+
+Rules:
+- Be strict and consistent
+- Justify each score briefly
+- Do NOT be influenced by length alone
+
