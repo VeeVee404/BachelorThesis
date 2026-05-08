@@ -92,7 +92,7 @@
 
 \begin{titlepage}
     \centering
-    {\Large University Name\par}
+    {\Large Universität Salzburg\par}
     \vspace{1cm}
     {\large Bachelor Thesis\par}
     \vspace{2cm}
@@ -348,6 +348,18 @@ The number of lines of code is used as a structural measurement that reflects th
 \subsection{Algorithmic Evaluation}
 In addition to testing the correctness and performance of the generated solutions, the algorithms or the code are also evaluated for their quality. This evaluation checks what algorithm the model used, and if this is the optimal choice for the given problem 
 
+\subsection{Readability}
+Readability is the metric, whether the code is understandable in terms of intent, logic and rationale. This is to avoid any confusion or ambiguity when it comes to debugging or editing the code in any way. The most important aspect to ensure a code is readable, is clear names of functions and variables, so it is clear what their purpose is.
+
+\subsection{Structure}
+Code structure refers to the organization and arrangement of code elements such as functions, classes, modules, and control flow within a software system. A well-defined code structure emphasizes modularity, readability, consistency, and maintainability, enabling easier debugging, testing, and future extension of the application.
+
+\subsection{Idiomatic Use}
+Idiomatic use describes how closely the code follows the existing conventions of a given programming language. This includes language specific features, structures and design principles.
+
+\subsection{Unnecessary Complexity}
+Unnecessary complexity looks at any redundancy, overly complicated logic or implementations that are difficult to understand within the code. This can also include excessive use of abstraction or patterns where they would not be necessary.
+
 
 \section{Execution Procedure}
 Each experiment follows the same pipeline:
@@ -374,7 +386,7 @@ Compile fails & failure \\
 Runtime error & failure \\
 Timeout & failure \\
 Wrong output & incorrect \\
-Output format incorrect & failure \\
+Output format incorrect & incorrect \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -422,7 +434,7 @@ aoc-llm-benchmark/
 |-- results/
 |-- thesis/
 \end{lstlisting}
-Each year directory contains the \texttt{problems}, \texttt{solutions}, and \texttt{benchmarking-test}.
+Each year directory contains the \texttt{problems}, \texttt{solutions}, and \texttt{benchmarking-test}. For every problem statement there is a part A and a part B, except for the very last problem, since the last problem only has one part to it. Therefore the final number of results is 88.
 
 \section{CLI-Based Generation Workflow}
 The benchmark is performed using the command-line interfaces of both the evaluated systems to ensure that all runs can be performed in a consistent way, which enables scripting all runs. The use of command-line access allows for automating the entire process of benchmarking and minimizing the possibility of human error during the process of data collection.
@@ -438,21 +450,22 @@ The general workflow includes the following steps:
 
 
 \section{Validation and Measurement}
-Correctness is validated against expected outputs stored for each Advent of Code problem. Runtime is measured using repeated executions and summarized using the median value. Memory usage is collected using the GNU time function. Lines of code are counted directly from the generated source files.
+Correctness is validated against expected outputs stored for each Advent of Code problem. Runtime is measured using repeated executions and summarized using the median value. Memory usage is collected using the GNU time function. Lines of code are counted directly from the generated source files.\\
+The code evaluations were conducted with the method 'LLM-as-a-judge', with a standardized prompt and the LLM-Model Codex by OpenAI. In additin to this method of evaluation, the two code evaluation systems 'SonarQube' and 'Codeacy' were used, but these systems did not provide an evaluation for all Codes.
+
+
 
 
 
 \chapter{Results}
 
 \section{Overview}
-This chapter presents the benchmark results for correctness, runtime, memory usage, compile success, code size and the algorithmic evaluation.
+This chapter presents the benchmark results for correctness, runtime, memory usage, compile success, code size and the algorithmic evaluation. \\ 
+Furthermore, the code structure was evaluated based on readability, idiomatic use of the languages, overall structure and any unneccesary complexity within the code.
 
 \section{Correctness}
-[TODO: Add results]
-\section{Compile Success}
-Compile success is only relevant for Rust. [TBD if this is necessary]
+The generated code was functionally correct on the first attempt in all tested cases. No additional debugging or structural modifications were required and the repair prompt was not used.
 
-[TODO: add results]
 
 \section{Runtime}
 Runtime measurments are reported with the average value, maximum, minimum and standard derivation.
@@ -477,8 +490,6 @@ This section determines what algorithm has been used and if this is the best cho
 
 
 
-\section{Possible section: Generation time}
-The time it took to generate each code [TBD!]
 
 
 
