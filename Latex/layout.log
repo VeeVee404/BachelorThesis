@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.3.15)  13 APR 2026 11:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.3.15)  8 MAY 2026 08:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1082,7 +1082,7 @@ Chapter 7.
 ]
 Appendix A.
 
-LaTeX Warning: Empty bibliography on input line 529.
+LaTeX Warning: Empty bibliography on input line 551.
 
 [20
 
@@ -1101,8 +1101,8 @@ Package rerunfilecheck Warning: File `layout.out' has changed.
 (rerunfilecheck)                or use package `bookmark'.
 
 Package rerunfilecheck Info: Checksums for `layout.out':
-(rerunfilecheck)             Before: C89E55A8BA760DCA78E608DA75192360;8267
-(rerunfilecheck)             After:  CF0614440405D79D273AE2C180816FCF;8058.
+(rerunfilecheck)             Before: 5AC294BD961359D41A00755C7B4E5540;8226
+(rerunfilecheck)             After:  B0C68308CB3EBFF64DE8F35D033E942F;8729.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                layout
@@ -1113,32 +1113,24 @@ Package logreq Info: Writing requests to 'layout.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 26627 strings out of 467870
- 513006 string characters out of 5417387
- 1479587 words of memory out of 5000000
- 55049 multiletter control sequences out of 15000+600000
+ 26632 strings out of 467870
+ 513109 string characters out of 5417387
+ 1479588 words of memory out of 5000000
+ 55050 multiletter control sequences out of 15000+600000
  676315 words of font info for 72 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,8n,80p,1201b,2887s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-pdfTeX warning (dest): name{table.4.1} has been referenced but does not exist, 
-replaced by a fixed one
-
-
-pdfTeX warning (dest): name{section.4.5} has been referenced but does not exist
-, replaced by a fixed one
-
-<C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pf
-b><C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.p
-fb><C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.
-pfb><C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.
-pfb><C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri1
-2.pfb><C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmt
-t10.pfb><C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/l
-mtt12.pfb>
-Output written on layout.pdf (26 pages, 272181 bytes).
+<C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.
+pfb><C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12
+.pfb><C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr1
+7.pfb><C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr
+6.pfb><C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr
+i12.pfb><C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/l
+mtt10.pfb><C:/Users/Vanessa/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm
+/lmtt12.pfb>
+Output written on layout.pdf (26 pages, 274346 bytes).
 PDF statistics:
- 550 PDF objects out of 1000 (max. 8388607)
- 151 named destinations out of 1000 (max. 500000)
- 473 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 557 PDF objects out of 1000 (max. 8388607)
+ 155 named destinations out of 1000 (max. 500000)
+ 481 words of extra memory for PDF output out of 10000 (max. 10000000)
 
