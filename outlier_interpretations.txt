@@ -1,0 +1,339 @@
+Outlier Interpretations
+=======================
+
+Method used
+-----------
+I identified outliers with a Tukey 1.5*IQR rule separately for Python and Rust for three metrics: runtime_mean, memory_mean, and LOC. That is important because the Rust runtime values are packed into a very narrow band around roughly 12 ms, so some Rust "outliers" are only statistical outliers, not practically large deviations.
+
+The benchmark rows covered here are all Part B tasks from the current `results.xlsx` parse. I mapped each row back to the corresponding solution file and interpreted the outlier by reading the code, not just the spreadsheet.
+
+Summary of what is really going on
+----------------------------------
+1. The strongest, genuinely meaningful outliers come from 2025 Day 2 Part B in Python and Rust. That task encourages expensive repeated-digit enumeration, and the slower solutions do extra global generation, string construction, or range scanning.
+2. The next meaningful runtime outlier is 2024 Day 12 Part B in Python, because counting region sides is much heavier than the other Python tasks and the two implementations choose different side-counting strategies.
+3. The large LOC outliers all come from Codex choosing a more defensive or more fully generalized formulation than the simpler direct solution actually needed.
+4. Most Rust runtime outliers other than 2025 Day 2 and 2025 Day 6 are weak practical effects. The spread is so tight that a few hundred microseconds of extra work or saved work is enough to cross the statistical threshold.
+
+Detailed interpretations
+------------------------
+
+A. 2025 D2 Claude Python
+Row: 2025 D2 Claude Python
+Metrics: runtime 147632, memory 15464, LOC 37
+File: `Claude/Python/2025/Day2b_Solution_2025.py`
+Problem: detect numbers that are made of a repeated digit block and sum the invalid IDs in many ranges.
+
+Why it is a runtime outlier
+- This is the most extreme runtime outlier in the whole dataset.
+- The code generates all repeated-pattern candidates up to the maximum number of digits using nested loops over pattern length, prefix, and repetition count.
+- After building `invalid_sorted`, it answers each query range by scanning the list from the beginning until it passes the upper bound.
+- That means the expensive work happens twice: first in candidate generation, then again in repeated per-range scanning.
+
+What in the code causes it
+- The slowest part is the final query loop:
+  - for each `(a, b)` range, it iterates through `invalid_sorted`
+  - it breaks only after `n > b`
+  - it adds matching values one by one
+- This is effectively repeated linear scanning over the candidate list for every range.
+- The code also constructs repeated numbers with `int(s * k)`, so it repeatedly allocates strings and parses them back to integers during generation.
+
+Why the memory is also an outlier
+- It stores the whole set of invalid numbers in a Python `set`, then sorts it into a list.
+- Python integers and set/list containers have large per-element overhead compared with Rust.
+- Because the task naturally produces many candidate repeated-pattern numbers, the storage overhead becomes visible here much more than in the other tasks.
+
+Why this interpretation is stronger than just saying "Python is slower"
+- Other Python rows do not blow up like this.
+- The outlier comes from a combination of task structure and implementation choice: heavy candidate generation plus repeated range scanning plus Python object overhead.
+
+
+B. 2025 D2 Codex Python
+Row: 2025 D2 Codex Python
+Metrics: runtime 100091, memory 15828, LOC 71
+File: `Codex/Python/2025/Day2b_Solution_2025.py`
+
+Why it is still an outlier, but less extreme than Claude Python
+- It solves the same fundamentally expensive task and also materializes all invalid IDs up to the global maximum.
+- It is much faster than the Claude Python version, but still far outside the normal Python runtime band.
+
+What in the code improves it
+- It precomputes `invalid_ids`, sorts them, and builds prefix sums.
+- Each range sum is then answered with two binary searches and one prefix-sum subtraction.
+- That removes the repeated linear range scans that hurt the Claude Python version.
+
+What still makes it an outlier
+- The candidate generation is still global and still expensive.
+- `build_invalid_ids` loops over total length, block length, and every possible block value.
+- It constructs repeated numbers with `int(str(value) * repeats)`, which still means many string allocations and integer parses.
+- So the query phase is optimized, but the generation phase remains heavy enough to make the whole row a major runtime outlier.
+
+Why the memory is slightly higher than Claude Python
+- In addition to storing all invalid IDs, it also stores a prefix-sum array.
+- That gives it better asymptotic query behavior, but it increases memory footprint.
+- This is why it is the highest Python memory row even though it is the faster Python solution for the same task.
+
+Interpretation
+- This is a classic tradeoff outlier: more precomputation and more auxiliary storage buys lower runtime than the simpler Python approach, but not enough to bring the task back into the normal Python cluster.
+
+
+C. 2025 D2 Codex Rust
+Row: 2025 D2 Codex Rust
+Metrics: runtime 22595, memory 2006, LOC 107
+File: `Codex/Rust/2025/Day2b_Solution_2025.rs`
+
+Why it is a meaningful Rust runtime outlier
+- This is the only Rust runtime outlier that is obviously large in practical terms, not just statistically.
+- It is nearly twice the usual Rust cluster around ~12 ms.
+
+What in the code causes it
+- It globally generates every repeated-pattern number up to `max_value`, not just values that actually matter to a specific range.
+- `repeat_block` converts every block to a string and then rebuilds the repeated number digit by digit from bytes.
+- That means a large amount of repeated string work and digit-by-digit reconstruction inside nested loops.
+- It also sorts and deduplicates the whole vector afterwards.
+
+Why it is slower than Claude Rust on the same task
+- Claude Rust also enumerates candidate repeated-pattern numbers, but it checks each candidate directly against the input ranges and inserts only matches into a `HashSet`.
+- Codex Rust instead fully materializes the global invalid-ID universe up to `max_end` and only then answers the merged ranges.
+- That design does more up-front work than is necessary when the interesting values are sparse.
+
+Why the memory is not a Rust outlier despite being much higher than most Rust rows
+- Rust memory values span two internal bands in this dataset: near-zero style values for simpler tasks and around 1000-2000 for tasks with larger vectors or grid structures.
+- `2006` is high for Rust here, but the statistical threshold for Rust memory is wide enough that it does not become an outlier.
+- The extra memory comes from storing the full `invalid_ids` vector before summation.
+
+Interpretation
+- This outlier is real. The code uses a correct but globally precomputing strategy, and the repeated string-based construction makes that strategy expensive even in Rust.
+
+
+D. 2025 D2 Claude Rust
+Row: 2025 D2 Claude Rust
+Metrics: runtime 13003, memory 0.939, LOC 51
+File: `Claude/Rust/2025/Day2b_Solution_2025.rs`
+
+Why it is technically an outlier
+- It crosses the Tukey upper bound for Rust runtime.
+- In practical terms, the effect is much smaller than the Codex Rust Day 2 case.
+
+What in the code explains the slight slowdown
+- It still enumerates many repeated-pattern candidates across total lengths and pattern sizes.
+- For each candidate number, it then loops over all ranges to see whether that number belongs to at least one range.
+- That is extra work compared with tasks whose solutions are just one linear pass or one compact DP.
+
+Why it is only a weak outlier
+- The absolute runtime is still close to the rest of the Rust rows.
+- The Rust distribution is so tight that a modest amount of additional per-candidate checking is enough to be tagged as an outlier.
+
+Interpretation
+- This is a real task-effect signal, but a small one. The task is harder than the typical Rust row, and the implementation does candidate generation plus per-candidate range membership checks. Still, the practical deviation is minor compared with the Python and Codex Rust Day 2 spikes.
+
+
+E. 2024 D12 Claude Python
+Row: 2024 D12 Claude Python
+Metrics: runtime 89125, memory 7129, LOC 50
+File: `Claude/Python/2024/Day12b_Solution_2024.py`
+Problem: compute area * number_of_sides for each connected region in a grid.
+
+Why it is a strong Python runtime outlier
+- This task is algorithmically heavier than the simpler parsing and arithmetic tasks in the dataset.
+- The implementation performs a BFS over each region and, for every visited cell, calls `count_corners`.
+- `count_corners` performs multiple neighborhood checks per cell, including diagonal logic.
+
+What in the code causes it
+- The core cost is not just the BFS. It is the per-cell corner counting logic layered on top of the BFS.
+- `count_corners` checks four corner configurations for every cell, and each configuration performs three region-membership checks.
+- That yields a fairly high constant factor in Python.
+- The BFS queue also adds Python-level object traffic through tuples and deque operations.
+
+Why it is much slower than Codex Python on the same task
+- Claude counts corners locally at every cell.
+- Codex records exposed edges during flood fill and then counts runs of contiguous edge positions afterwards.
+- Codex's approach is still not cheap, but it shifts more work into list appends and grouped postprocessing instead of repeated corner tests for every cell.
+
+Interpretation
+- This outlier is driven by the task being geometry-heavy and by Claude choosing a conceptually elegant but high-constant-factor per-cell corner-counting method.
+
+
+F. 2024 D12 Codex Python
+Row: 2024 D12 Codex Python
+Metrics: runtime 45542, memory 7204, LOC 78
+File: `Codex/Python/2024/Day12b_Solution_2024.py`
+
+Why it is still a Python runtime outlier
+- Even the faster of the two Python Day 12 solutions is still above the normal Python band.
+- That tells us Day 12 Part B is intrinsically expensive relative to the other benchmarked Python tasks.
+
+What in the code causes the remaining cost
+- The solution flood-fills every region and stores exposed boundary positions into four dictionaries: top, bottom, left, right.
+- After the traversal, it sorts boundary positions and counts contiguous runs to compute the number of sides.
+- That means each region does both traversal work and postprocessing on accumulated edge lists.
+
+Why it is faster than Claude Python
+- The expensive "how many sides are there" computation is done in grouped batches per edge map, not recomputed from scratch at each cell corner.
+- The `count_runs` helper is straightforward and data-oriented.
+- So the same task stays expensive, but the implementation reduces Python-level repeated condition checking.
+
+Interpretation
+- This is a task-driven outlier, not a bad-code outlier. The solution is relatively disciplined, but the problem itself has more structural work than most of the benchmark set.
+
+
+G. 2025 D6 Claude Rust
+Row: 2025 D6 Claude Rust
+Metrics: runtime 13271, memory 1018, LOC 95
+File: `Claude/Rust/2025/Day6b_Solution_2025.rs`
+
+Why it is a mild Rust runtime outlier
+- The absolute deviation is small, but unlike the D13 low outliers, there is visible implementation overhead here.
+
+What in the code causes it
+- The grid is stored as `Vec<Vec<char>>`, which is heavier than a byte-based representation.
+- It computes separator columns by scanning the whole grid column by column.
+- It builds number strings column by column and then parses those strings into integers.
+- This means extra allocation and Unicode `char` handling for a problem that really only needs ASCII digits and spaces.
+
+Why Codex Rust is faster on the same task
+- Codex uses `Vec<Vec<u8>>` and accumulates digits numerically instead of building `String`s.
+- That avoids repeated allocations and uses simpler byte-level operations.
+
+Interpretation
+- This outlier is caused by representation choice. The algorithmic idea is fine, but the implementation is less data-local and more allocation-heavy than it needs to be in Rust.
+
+
+H. 2025 D7 Codex Rust
+Row: 2025 D7 Codex Rust
+Metrics: runtime 12365, memory 0.93, LOC 55
+File: `Codex/Rust/2025/Day7b_Solution_2025.rs`
+
+Why it is only a weak statistical outlier
+- The runtime is only slightly above the extremely narrow Rust baseline.
+- This should not be interpreted as a materially problematic row.
+
+What the code is doing
+- It uses a width-sized DP vector per row.
+- For each row it allocates a fresh `next` vector and updates counts by column.
+- This is actually a clean and efficient design.
+
+Why it may still sit above the threshold
+- The dataset's Rust runtime spread is tiny, so even one extra vector allocation per row or a slightly larger input shape is enough to cross the statistical line.
+- There is no obvious algorithmic mistake here.
+
+Interpretation
+- Treat this as a threshold artifact, not as a substantive performance anomaly.
+
+
+I. 2024 D13 Claude Rust
+Row: 2024 D13 Claude Rust
+Metrics: runtime 11681, memory 0.943, LOC 61
+File: `Claude/Rust/2024/Day13b_Solution_2024.rs`
+
+Why it is a lower runtime outlier
+- It is faster than the already-fast Rust pack.
+- This is the opposite of a problematic outlier: it is unusually cheap.
+
+Why it is cheap
+- Day 13 Part B reduces to solving tiny systems of linear equations using direct arithmetic.
+- There is almost no heavy data structure work, no large traversal, and no repeated dynamic allocation in the hot path.
+- The code is compact and close to the mathematical formulation.
+
+Interpretation
+- This outlier exists because the task is unusually arithmetic and lightweight, so the runtime drops below the already-tight Rust band.
+
+
+J. 2024 D13 Codex Rust
+Row: 2024 D13 Codex Rust
+Metrics: runtime 11832, memory 0.963, LOC 187
+File: `Codex/Rust/2024/Day13b_Solution.rs`
+
+Why it is a lower runtime outlier but also a LOC outlier
+- Runtime-wise, it belongs with Claude Rust Day 13: the underlying task is just cheap.
+- LOC-wise, it is a large outlier because Codex implemented a much more general solver than the direct non-degenerate case really requires.
+
+What in the code creates the LOC spike
+- It includes a full parser with structured `Machine` records.
+- It implements `extended_gcd`, `ceil_div`, `floor_div`, and a separate `min_tokens_degenerate` path.
+- It handles degenerate linear systems very carefully, including general Diophantine solution bounds.
+
+Why the runtime still stays low
+- The extra code is mostly control logic and edge-case support, not expensive repeated work on large inputs.
+- The actual benchmark workload still consists of small arithmetic per machine.
+
+Interpretation
+- This is a classic over-generalization outlier. The implementation is more mathematically complete than necessary for the common case, which inflates LOC heavily, but it does not hurt runtime much because the workload is small.
+
+
+K. 2024 D13 Codex Python
+Row: 2024 D13 Codex Python
+Metrics: runtime 32775, memory 7380, LOC 133
+File: `Codex/Python/2024/Day13b_Solution_2024.py`
+
+Why it is a LOC outlier but not a runtime outlier
+- The same over-generalization pattern appears here as in the Rust version.
+- The code supports a degenerate case with extended Euclid, bound reasoning, and token minimization over solution families.
+
+Why the LOC is high
+- It includes several helper functions and a separate `solve_degenerate` branch.
+- For the benchmark input, the direct determinant-based path is likely the dominant one, but the code is prepared for broader mathematical edge cases.
+
+Why runtime remains normal
+- The dataset size is small enough that extra branching and helper calls do not dominate.
+- The cost of the task is still mostly parsing plus a small amount of arithmetic.
+
+Interpretation
+- This is another defensive-generalization outlier. The code is solving a broader class of linear systems than the benchmark necessarily demands.
+
+
+L. 2024 D24 Codex Rust
+Row: 2024 D24 Codex Rust
+Metrics: runtime 11956, memory 1096, LOC 152
+File: `Codex/Rust/2024/Day24b_Solution.rs`
+
+Why it is a LOC outlier
+- The problem itself is structurally more involved than most rows because it requires reasoning about a broken adder circuit and output-wire swaps.
+- Codex implements this with explicit data structures and multiple helper routines for lookup rebuilding, canonicalization, gate searching, and swapping.
+
+What in the code creates the LOC spike
+- It defines explicit `Op` and `Gate` types.
+- It maintains both a gate map and a reconstructed lookup keyed by canonicalized gate inputs.
+- It has a multi-step repair loop over bit positions, with several special-case correction branches.
+- It recomputes lookup structures after swaps to keep reasoning consistent.
+
+Why this is not a runtime outlier
+- Even though the code is long, the input size is still modest.
+- The additional complexity is in program structure and reasoning clarity rather than in a large asymptotic penalty.
+
+Interpretation
+- This is a "complex problem, explicit reconstruction" LOC outlier. The code is longer because the problem invites circuit-model reconstruction and swap reasoning, not because the solution is inefficient in the benchmark.
+
+
+M. 2024 D12 Claude Rust
+Row: 2024 D12 Claude Rust
+Metrics: runtime 11835, memory 1006, LOC 67
+File: `Claude/Rust/2024/Day12b_Solution_2024.rs`
+
+Why it is a lower runtime outlier
+- This is a very small deviation below the Rust band.
+- It should not be overinterpreted.
+
+What the code is doing
+- It stores each region as a vector of coordinates, then counts corners by checking diagonal configurations.
+- That is not obviously cheaper than every other Rust row in a major asymptotic sense.
+
+Best interpretation
+- This looks like a light statistical low outlier caused by the combination of efficient compiled code and a benchmark distribution with extremely small spread.
+- The row is not qualitatively different enough to justify a strong causal story beyond "slightly cheaper run within a tightly clustered Rust set".
+
+
+Cross-cutting conclusions
+-------------------------
+1. 2025 Day 2 Part B is the clearest "hard task creates real outliers" case in the whole benchmark. Every version that globally enumerates repeated-pattern IDs pays for it, and Python pays much more.
+2. 2024 Day 12 Part B is the clearest "same hard task, different implementation constant factors" case. Both Python solutions are slow, but the per-cell corner counting approach is much slower than the edge-run approach.
+3. Codex's LOC outliers mostly come from writing more general or more explicit solvers than strictly necessary:
+   - Day 13: full degenerate linear-system handling
+   - Day 24: explicit circuit reconstruction machinery
+4. Most small Rust runtime outliers are not deep algorithmic anomalies. Because the Rust timings cluster so tightly, the Tukey rule flags some rows that are only marginally different in practice.
+
+Practical takeaway for the thesis interpretation
+------------------------------------------------
+If you discuss these outliers in the thesis or presentation, the strongest defensible narrative is:
+- Python outliers mostly reflect tasks where candidate generation, repeated scanning, or geometry-heavy local checks create large interpreter overhead.
+- Rust outliers only become strongly meaningful when the implementation does noticeably more global precomputation or heavier representations than its peers.
+- Large LOC outliers are usually not correctness failures; they are signs of more defensive, generalized, or explicit reasoning by the model.
